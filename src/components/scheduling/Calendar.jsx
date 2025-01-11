@@ -8,49 +8,25 @@ function Calendar() {
   const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
   const currentYear = currentDate.getFullYear();
 
-  // Generate example shifts from team members
-  const weeklyShifts = teamMembers.map((member, index) => ({
-    id: member.id,
-    name: member.name.split(' ')[0],
-    shift: index % 2 === 0 ? 'Morning Shift (9AM - 5PM)' : 'Evening Shift (1PM - 9PM)',
-    startDate: '2025-01-05',
-    endDate: '2025-01-10',
-    color: member.status === 'Online' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800',
-    index: index % 3
-  }));
-
-  // Original example shifts
-  const exampleShifts = [
-    {
-      id: 1,
-      name: 'John S.',
-      shift: 'Morning Shift (9AM - 5PM)',
-      startDate: '2025-01-05',
-      endDate: '2025-01-10',
-      color: 'bg-green-100 text-green-800',
-      index: 0
-     
-    },
-    {
-      id: 2,
-      name: 'Sarah M.',
-      shift: 'Evening Shift (1PM - 9PM)',
-      startDate: '2025-01-12', // Monday
-      endDate: '2025-01-17',   // Friday
-      color: 'bg-blue-100 text-blue-800',
-      index: 0
-    },
-      {
-        id: 3,
-        name: 'Emma W.',
-        shift: 'On Leave',
-        startDate: '2025-01-05',
-        endDate: '2025-01-08',
-        color: 'bg-red-100 text-red-800 border border-red-200',
-        type: 'leave',
-        index: 1
-      }
-  ];
+  // Generate shifts for AML Ops Makers
+  const weeklyShifts = teamMembers
+    .filter(m => m.role.includes('Maker'))
+    .slice(0, 20)
+    .map((member, index) => {
+      const weekNum = Math.floor(index / 4);
+      const startDate = new Date(2025, 0, 1 + (weekNum * 7));
+      const endDate = new Date(2025, 0, 7 + (weekNum * 7));
+      
+      return {
+        id: member.id,
+        name: member.name.split(' ')[0],
+        shift: 'AML Ops Maker',
+        startDate: startDate.toISOString().split('T')[0],
+        endDate: endDate.toISOString().split('T')[0],
+        color: member.status === 'Online' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800',
+        index: index % 4
+      };
+    });
 
   // Generate calendar days
   const generateCalendarDays = () => {
