@@ -1,5 +1,6 @@
 import { Button } from "../components/ui/button";
-import { Plus, Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { teamMembers } from "../data/mockTeamData";
 import { ScheduleStats } from "../components/scheduling/ScheduleStats";
 import { Calendar } from "../components/scheduling/Calendar";
 import { ShiftList } from "../components/scheduling/ShiftList";
