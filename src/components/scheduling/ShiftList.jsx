@@ -11,7 +11,7 @@ export function ShiftList() {
   return (
     <div className="bg-white rounded-lg border">
       <div className="border-b p-4">
-        <h2 className="text-lg font-medium">Team Members by Role</h2>
+        <h2 className="text-lg font-medium">Current Shifts</h2>
       </div>
 
       <div className="divide-y">
