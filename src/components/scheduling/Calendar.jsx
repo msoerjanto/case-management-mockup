@@ -114,7 +114,7 @@ function Calendar() {
         {generateCalendarDays().map((dayData, index) => (
           <div 
             key={index}
-            className="bg-white p-2 min-h-[160px] border-t relative group"
+            className="bg-white p-2 min-h-[160px] border-t relative group overflow-visible"
           >
             <div className="font-medium text-sm text-gray-500">
               {dayData?.dayOfMonth}
@@ -130,13 +130,14 @@ function Calendar() {
                       cursor-pointer truncate ${shift.color}
                     `}
                     style={{
-                      width: `calc(${getShiftWidth(dayData.date, shift)} * 100% - 1rem)`,
-                      top: `${shift.index * 28}px`, // Stack overlapping shifts
+                      width: `calc(${getShiftWidth(dayData.date, shift)} * (100% + 1px))`,
+                      top: `${shift.index * 28}px`,
                       maxWidth: 'none',
                       zIndex: 10,
                       position: 'absolute',
-                      left: '0.5rem',
-                      right: '0.5rem'
+                      left: '0',
+                      right: '-1px',
+                      margin: '0 0.5rem'
                     }}
                   >
                     <div className="flex items-center gap-1">
