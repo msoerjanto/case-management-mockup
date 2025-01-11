@@ -11,9 +11,9 @@ function Calendar() {
   // Generate shifts for AML Ops Makers
   const weeklyShifts = teamMembers
     .filter(m => m.role.includes('Maker'))
-    .slice(0, 20)
+    .slice(0, 10) // Reduce to 10 members to have 2 per week
     .map((member, index) => {
-      const weekNum = Math.floor(index / 4);
+      const weekNum = Math.floor(index / 2); // 2 members per week
       // Start from December 29, 2024
       const startDate = new Date(2024, 11, 29 + (weekNum * 7));
       const endDate = new Date(2024, 11, 29 + (weekNum * 7) + 6);
@@ -25,7 +25,7 @@ function Calendar() {
         startDate: startDate.toISOString().split('T')[0],
         endDate: endDate.toISOString().split('T')[0],
         color: member.status === 'Online' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800',
-        index: index % 4, // Restore index for vertical stacking within week
+        index: index % 2, // Alternate between 0 and 1 for stacking two shifts
         weekNum
       };
     });
