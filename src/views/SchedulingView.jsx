@@ -20,7 +20,7 @@ function SchedulingView() {
     },
     {
       id: 2,
-      name: "AML Ops Checker Schedule",
+      name: "AML Compliance Schedule",
       team: "AML Operations",
       totalMembers: 7,
       activeMembers: 5,
