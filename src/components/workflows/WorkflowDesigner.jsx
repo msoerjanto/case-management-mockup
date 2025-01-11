@@ -987,14 +987,54 @@ function WorkflowDesigner() {
                                             <button
                                                 key={type}
                                                 className={`w-full p-4 text-left hover:bg-gray-50 rounded-lg border transition-colors mb-2 
-                                                ${newActionData.type === type ? 'ring-2 ring-blue-500 border-blue-500' : ''}`}
-                                                onClick={() => setNewActionData(prev => ({ ...prev, type }))}
+                                                ${newAction.type === type ? 'ring-2 ring-blue-500 border-blue-500' : ''}`}
+                                                onClick={() => setNewAction(prev => ({ ...prev, type }))}
                                             >
                                                 <div className="font-medium">{config.label}</div>
                                                 <div className="text-sm text-gray-500 mt-1">{config.description}</div>
                                             </button>
                                         ))}
                                     </div>
+
+                                    {newAction.type === 'transition' && (
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Target State
+                                            </label>
+                                            <select
+                                                className="w-full rounded-md border border-gray-300 p-2 text-sm bg-white"
+                                                value={newAction.targetState || ''}
+                                                onChange={(e) => setNewAction({...newAction, targetState: e.target.value})}
+                                            >
+                                                <option value="">Select target state...</option>
+                                                {states.map(state => (
+                                                    <option key={state.id} value={state.id}>
+                                                        {state.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    )}
+
+                                    {newAction.type === 'webhook' && (
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Integration
+                                            </label>
+                                            <select
+                                                className="w-full rounded-md border border-gray-300 p-2 text-sm bg-white"
+                                                value={newAction.integrationId || ''}
+                                                onChange={(e) => setNewAction({...newAction, integrationId: e.target.value})}
+                                            >
+                                                <option value="">Select integration...</option>
+                                                {availableIntegrations.map(integration => (
+                                                    <option key={integration.id} value={integration.id}>
+                                                        {integration.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    )}
 
                                     <div className="flex justify-end gap-2 mt-6">
                                         <Button
