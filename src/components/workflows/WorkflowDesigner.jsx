@@ -157,7 +157,8 @@ function WorkflowDesigner() {
 
     const ACTION_TYPES = {
         TRANSITION: 'transition',
-        API_WEBHOOK: 'api_webhook'
+        API_WEBHOOK: 'api_webhook',
+        REASSIGN: 'reassign'
     };
 
     const ACTION_TYPE_CONFIGS = {
@@ -172,6 +173,12 @@ function WorkflowDesigner() {
             description: 'Call an external API',
             requiresIntegration: true,
             fields: ['name', 'integration', 'mapping']
+        },
+        [ACTION_TYPES.REASSIGN]: {
+            label: 'Reassign',
+            description: 'Reassign case to team or team member',
+            requiresAssignee: true,
+            fields: ['name', 'assignee']
         }
     };
 
@@ -1037,6 +1044,57 @@ function WorkflowDesigner() {
                                                     </option>
                                                 ))}
                                             </select>
+                                        </div>
+                                    )}
+
+                                    {newAction.type === 'reassign' && (
+                                        <div className="space-y-4">
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                    Assignee Type
+                                                </label>
+                                                <select
+                                                    className="w-full rounded-md border border-gray-300 p-2 text-sm bg-white"
+                                                    value={newAction.assigneeType || ''}
+                                                    onChange={(e) => setNewAction({
+                                                        ...newAction,
+                                                        assigneeType: e.target.value,
+                                                        assigneeId: '' // Reset assignee when type changes
+                                                    })}
+                                                >
+                                                    <option value="">Select type...</option>
+                                                    <option value="team">Team</option>
+                                                    <option value="user">Team Member</option>
+                                                </select>
+                                            </div>
+
+                                            {newAction.assigneeType && (
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                        {newAction.assigneeType === 'team' ? 'Select Team' : 'Select Team Member'}
+                                                    </label>
+                                                    <select
+                                                        className="w-full rounded-md border border-gray-300 p-2 text-sm bg-white"
+                                                        value={newAction.assigneeId || ''}
+                                                        onChange={(e) => setNewAction({...newAction, assigneeId: e.target.value})}
+                                                    >
+                                                        <option value="">Select {newAction.assigneeType}...</option>
+                                                        {newAction.assigneeType === 'team' ? (
+                                                            teams.map(team => (
+                                                                <option key={team.id} value={team.id}>
+                                                                    {team.name}
+                                                                </option>
+                                                            ))
+                                                        ) : (
+                                                            users.map(user => (
+                                                                <option key={user.id} value={user.id}>
+                                                                    {user.name}
+                                                                </option>
+                                                            ))
+                                                        )}
+                                                    </select>
+                                                </div>
+                                            )}
                                         </div>
                                     )}
 
