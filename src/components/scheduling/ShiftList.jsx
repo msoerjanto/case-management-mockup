@@ -55,9 +55,6 @@ export function ShiftList() {
           <thead className="bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Week
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                 Date Range
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
@@ -73,9 +70,6 @@ export function ShiftList() {
                   key={shift.id}
                   className={`${active ? 'bg-blue-50' : ''} hover:bg-gray-50`}
                 >
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    Week {index + 1}
-                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {new Date(shift.startDate).toLocaleDateString()} - {new Date(shift.endDate).toLocaleDateString()}
                   </td>
