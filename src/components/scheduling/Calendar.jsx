@@ -25,7 +25,7 @@ function Calendar() {
         startDate: startDate.toISOString().split('T')[0],
         endDate: endDate.toISOString().split('T')[0],
         color: member.status === 'Online' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800',
-        index: 0, // Set all indexes to 0 to prevent stacking
+        index: index % 4, // Restore index for vertical stacking within week
         weekNum
       };
     });
@@ -51,9 +51,7 @@ function Calendar() {
   const getShiftsForDate = (date) => {
     if (!date) return [];
     const dateString = date.toISOString().split('T')[0];
-    const weekNum = Math.floor((date.getDate() - 1) / 7);
     return weeklyShifts.filter(shift => 
-      shift.weekNum === weekNum && 
       dateString >= shift.startDate && 
       dateString <= shift.endDate
     );
