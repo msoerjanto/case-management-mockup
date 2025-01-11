@@ -74,7 +74,7 @@ function Calendar() {
     const end = new Date(shift.endDate);
     const dayDiff = Math.min(
       Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1,
-      7 - start.getDay() // Don't extend beyond the current week
+      7 // Allow full week span
     );
     return dayDiff;
   };
@@ -136,7 +136,8 @@ function Calendar() {
                       position: 'absolute',
                       left: '0',
                       right: '-1px',
-                      margin: '0 0.5rem'
+                      margin: '0 0.5rem',
+                      gridColumn: `span ${getShiftWidth(dayData.date, shift)}`
                     }}
                   >
                     <div className="flex items-center gap-1">
