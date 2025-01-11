@@ -858,7 +858,7 @@ function WorkflowDesigner() {
                                         <div className="space-y-2 mb-2">
                                             {recommendation.actions.map((action, index) => (
                                             <div key={index} className="flex items-center gap-2 p-2 bg-gray-50 rounded">
-                                                <span className="text-sm">{getActionDescription(action)}</span>
+                                                <span className="text-sm">{action.description || getActionDescription(action)}</span>
                                                 <Button 
                                                 variant="ghost" 
                                                 size="sm"
@@ -1046,6 +1046,17 @@ function WorkflowDesigner() {
                                             </select>
                                         </div>
                                     )}
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Description
+                                        </label>
+                                        <Input
+                                            value={newAction.description || ''}
+                                            onChange={(e) => setNewAction({...newAction, description: e.target.value})}
+                                            placeholder="e.g., Move case to review queue"
+                                        />
+                                    </div>
 
                                     {newAction.type === 'reassign' && (
                                         <div className="space-y-4">
