@@ -11,7 +11,7 @@ function SchedulingView() {
   const schedules = [
     {
       id: 1,
-      name: "AML Ops Maker Schedule",
+      name: "AML Ops Schedule",
       team: "AML Operations",
       totalMembers: 20,
       activeMembers: 15,
