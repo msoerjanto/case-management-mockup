@@ -5,28 +5,28 @@ import { Button } from "../ui/button";
 const weeklyShifts = [
   {
     id: 1,
-    name: "Week 1 (Jan 1-7)",
-    members: teamMembers.filter(m => m.role.includes('Maker')).slice(0, 4)
+    name: "Week 1 (Dec 29-Jan 4)",
+    members: teamMembers.filter(m => m.role.includes('Maker')).slice(0, 2)
   },
   {
     id: 2,
-    name: "Week 2 (Jan 8-14)",
-    members: teamMembers.filter(m => m.role.includes('Maker')).slice(4, 8)
+    name: "Week 2 (Jan 5-11)",
+    members: teamMembers.filter(m => m.role.includes('Maker')).slice(2, 4)
   },
   {
     id: 3,
-    name: "Week 3 (Jan 15-21)",
-    members: teamMembers.filter(m => m.role.includes('Maker')).slice(8, 12)
+    name: "Week 3 (Jan 12-18)",
+    members: teamMembers.filter(m => m.role.includes('Maker')).slice(4, 6)
   },
   {
     id: 4,
-    name: "Week 4 (Jan 22-28)",
-    members: teamMembers.filter(m => m.role.includes('Maker')).slice(12, 16)
+    name: "Week 4 (Jan 19-25)",
+    members: teamMembers.filter(m => m.role.includes('Maker')).slice(6, 8)
   },
   {
     id: 5,
-    name: "Week 5 (Jan 29-31)",
-    members: teamMembers.filter(m => m.role.includes('Maker')).slice(16, 20)
+    name: "Week 5 (Jan 26-Feb 1)",
+    members: teamMembers.filter(m => m.role.includes('Maker')).slice(8, 10)
   }
 ];
 
