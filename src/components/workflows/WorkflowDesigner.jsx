@@ -980,58 +980,6 @@ function WorkflowDesigner() {
                                 
                                 <div className="space-y-4">
                                     <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                                        Action Type
-                                    </label>
-                                    <select 
-                                        className="w-full rounded-md border border-gray-300 p-2 text-sm bg-white"
-                                        value={newAction.type || ''}
-                                        onChange={(e) => setNewAction({ ...newAction, type: e.target.value })}
-                                    >
-                                        <option value="">Select action type...</option>
-                                        <option value="transition">State Transition</option>
-                                        <option value="assign">Assign Case</option>
-                                        <option value="webhook">API Webhook</option>
-                                    </select>
-                                    </div>
-
-                                    {/* Condition Fields - Added before action type selection */}
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Condition
-                                        </label>
-                                        <Input
-                                            value={newActionData.condition}
-                                            onChange={(e) => setNewActionData(prev => ({
-                                                ...prev,
-                                                condition: e.target.value
-                                            }))}
-                                            placeholder="e.g., case.priority === 'High'"
-                                        />
-                                        <div className="mt-1 text-xs text-gray-500">
-                                            Enter a condition that determines when this action is available.
-                                            Leave empty to always enable.
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Disabled Tooltip
-                                        </label>
-                                        <Input
-                                            value={newActionData.tooltip}
-                                            onChange={(e) => setNewActionData(prev => ({
-                                                ...prev,
-                                                tooltip: e.target.value
-                                            }))}
-                                            placeholder="e.g., This action requires high priority cases"
-                                        />
-                                        <div className="mt-1 text-xs text-gray-500">
-                                            Message to show when hovering over disabled action
-                                        </div>
-                                    </div>
-
-                                    <div className="border-t pt-4">
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
                                             Select Action Type
                                         </label>
@@ -1060,13 +1008,12 @@ function WorkflowDesigner() {
                                         </Button>
                                         <Button
                                             className="bg-blue-600 hover:bg-blue-700"
-                                            disabled={!newActionData.type}
+                                            disabled={!newAction.type}
                                             onClick={() => {
                                                 const actionToAdd = {
                                                     id: Date.now(),
-                                                    type: newActionData.type,
-                                                    condition: newActionData.condition,
-                                                    tooltip: newActionData.tooltip,
+                                                    type: newAction.type,
+                                                    ...newAction,
                                                     isEditing: true
                                                 };
 
@@ -1080,7 +1027,7 @@ function WorkflowDesigner() {
                                                     return rec;
                                                 }));
                                                 setShowActionModal(false);
-                                                setNewActionData({ condition: '', tooltip: '', type: null });
+                                                setNewAction({});
                                             }}
                                         >
                                             Continue
