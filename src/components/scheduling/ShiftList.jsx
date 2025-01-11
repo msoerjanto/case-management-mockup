@@ -63,9 +63,6 @@ export function ShiftList() {
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                 Team Members
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Status
-              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -100,15 +97,6 @@ export function ShiftList() {
                         </div>
                       ))}
                     </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 py-1 text-xs font-medium rounded-full
-                      ${active 
-                        ? 'bg-blue-100 text-blue-800' 
-                        : 'bg-gray-100 text-gray-500'}`}
-                    >
-                      {active ? 'Active' : 'Inactive'}
-                    </span>
                   </td>
                 </tr>
               );
