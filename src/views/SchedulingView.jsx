@@ -11,19 +11,21 @@ function SchedulingView() {
   const schedules = [
     {
       id: 1,
-      month: "January 2025",
+      name: "Main Shift Schedule",
       team: "AML Operations",
       totalMembers: 27,
       activeMembers: 20,
-      totalShifts: 40
+      totalShifts: 40,
+      lastUpdated: "2025-01-10"
     },
     {
       id: 2,
-      month: "February 2025",
+      name: "Weekend Coverage",
       team: "AML Operations",
       totalMembers: 27,
       activeMembers: 0,
       totalShifts: 0,
+      lastUpdated: "2025-01-09",
       status: "draft"
     }
   ];
@@ -69,7 +71,7 @@ function SchedulingView() {
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Month</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Schedule Name</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Team</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total Members</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Active Members</th>
@@ -81,7 +83,12 @@ function SchedulingView() {
           <tbody className="divide-y">
             {schedules.map((schedule) => (
               <tr key={schedule.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 font-medium">{schedule.month}</td>
+                <td className="px-6 py-4">
+                  <div>
+                    <div className="font-medium">{schedule.name}</div>
+                    <div className="text-xs text-gray-500">Last updated {schedule.lastUpdated}</div>
+                  </div>
+                </td>
                 <td className="px-6 py-4">{schedule.team}</td>
                 <td className="px-6 py-4">{schedule.totalMembers}</td>
                 <td className="px-6 py-4">{schedule.activeMembers}</td>
