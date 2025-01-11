@@ -171,7 +171,7 @@ function Calendar() {
   );
 }
 
-export { Calendar };import { teamMembers } from "../../data/mockTeamData";
+export { Calendar };
 
 export function Calendar() {
   // Get current date
