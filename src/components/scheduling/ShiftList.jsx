@@ -47,7 +47,7 @@ export function ShiftList() {
   return (
     <div className="bg-white rounded-lg border">
       <div className="border-b p-4">
-        <h2 className="text-lg font-medium">January 2025 Shifts</h2>
+        <h2 className="text-lg font-medium">Current Shifts</h2>
       </div>
 
       <div className="overflow-hidden">
