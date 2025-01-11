@@ -412,17 +412,22 @@ function WorkflowDesigner() {
       };
       
       const handleAddAction = () => {
-        if (activeRecommendationId) {
-          setRecommendations(prev => prev.map(rec => {
+        const actionToAdd = {
+            id: Date.now(),
+            type: newAction.type,
+            ...newAction
+        };
+        
+        setRecommendations(prev => prev.map(rec => {
             if (rec.id === activeRecommendationId) {
-              return {
-                ...rec,
-                actions: [...rec.actions, newAction]
-              };
+                return {
+                    ...rec,
+                    actions: [...rec.actions, actionToAdd]
+                };
             }
             return rec;
-          }));
-        }
+        }));
+        
         setShowActionModal(false);
         setNewAction({});
         setActiveRecommendationId(null);
