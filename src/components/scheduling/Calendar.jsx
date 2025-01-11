@@ -14,8 +14,9 @@ function Calendar() {
     .slice(0, 20)
     .map((member, index) => {
       const weekNum = Math.floor(index / 4);
-      const startDate = new Date(2025, 0, 1 + (weekNum * 7));
-      const endDate = new Date(2025, 0, 7 + (weekNum * 7));
+      // Start from December 29, 2024
+      const startDate = new Date(2024, 11, 29 + (weekNum * 7));
+      const endDate = new Date(2024, 11, 29 + (weekNum * 7) + 6);
       
       return {
         id: member.id,
@@ -24,8 +25,8 @@ function Calendar() {
         startDate: startDate.toISOString().split('T')[0],
         endDate: endDate.toISOString().split('T')[0],
         color: member.status === 'Online' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800',
-        index: index % 4,
-        weekNum // Add weekNum to help with positioning
+        index: 0, // Set all indexes to 0 to prevent stacking
+        weekNum
       };
     });
 
