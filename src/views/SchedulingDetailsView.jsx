@@ -20,8 +20,8 @@ function SchedulingDetailsView({ scheduleId, onBack }) {
               Back to Schedules
             </button>
           </div>
-          <h1 className="text-2xl font-bold">January 2025 Schedule</h1>
-          <p className="text-gray-500">AML Operations Team Schedule</p>
+          <h1 className="text-2xl font-bold">AML Ops Maker Schedule</h1>
+          <p className="text-gray-500">January 2025</p>
         </div>
         <div className="flex gap-2">
           <Button className="bg-blue-600 hover:bg-blue-700">
