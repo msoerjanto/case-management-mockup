@@ -862,7 +862,7 @@ function WorkflowDesigner() {
                                         <Button
                                             variant="ghost"
                                             size="sm"
-                                            onClick={() => setShowAddActionModal(true)}
+                                            onClick={() => handleAddActionToRecommendation(recommendation.id)}
                                         >
                                             <Plus className="w-4 h-4 mr-2" />
                                             Add Action
