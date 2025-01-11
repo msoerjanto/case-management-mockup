@@ -2,22 +2,25 @@ import { teamMembers } from "../../data/mockTeamData";
 import { Button } from "../ui/button";
 
 export function ShiftList() {
-  // Group members by role and shift
-  const shifts = {
-    'Morning Shift (9AM - 5PM)': teamMembers.filter((_, i) => i % 2 === 0),
-    'Evening Shift (1PM - 9PM)': teamMembers.filter((_, i) => i % 2 === 1)
+  // Group members by role
+  const roles = {
+    'AML Ops Maker': teamMembers.filter(m => m.role.includes('Maker')),
+    'AML Ops Checker': teamMembers.filter(m => m.role.includes('Checker'))
   };
 
   return (
     <div className="bg-white rounded-lg border">
       <div className="border-b p-4">
-        <h2 className="text-lg font-medium">Current Shifts</h2>
+        <h2 className="text-lg font-medium">Team Members by Role</h2>
       </div>
 
       <div className="divide-y">
-        {Object.entries(shifts).map(([shift, members]) => (
-          <div key={shift} className="p-4">
-            <h3 className="font-medium mb-4">{shift}</h3>
+        {Object.entries(roles).map(([role, members]) => (
+          <div key={role} className="p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-medium">{role}</h3>
+              <span className="text-sm text-gray-500">{members.length} members</span>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {members.map(member => (
                 <div 
