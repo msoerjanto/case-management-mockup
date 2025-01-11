@@ -465,6 +465,14 @@ function WorkflowDesigner() {
         setRecommendations(prev => prev.filter(rec => rec.id !== recommendationId));
     };
 
+    const handleUpdateRecommendation = (recommendationId, updates) => {
+      setRecommendations(prev => prev.map(rec => 
+        rec.id === recommendationId 
+          ? { ...rec, ...updates }
+          : rec
+      ));
+    };
+
     const handleAddRecommendation = () => {
         const newRecommendation = {
         id: Date.now(),
