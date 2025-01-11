@@ -453,7 +453,11 @@ function WorkflowDesigner() {
         ));
       };
 
-      // Add these handler functions
+      // Handler functions for recommendations
+    const handleDeleteRecommendation = (recommendationId) => {
+        setRecommendations(prev => prev.filter(rec => rec.id !== recommendationId));
+    };
+
     const handleAddRecommendation = () => {
         const newRecommendation = {
         id: Date.now(),
