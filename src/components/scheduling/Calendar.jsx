@@ -1,5 +1,6 @@
 import { Button } from "../ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { teamMembers } from "../../data/mockTeamData";
 
 function Calendar() {
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -7,8 +8,19 @@ function Calendar() {
   const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
   const currentYear = currentDate.getFullYear();
 
-  // Example shift data
-  const weeklyShifts = [
+  // Generate example shifts from team members
+  const weeklyShifts = teamMembers.map((member, index) => ({
+    id: member.id,
+    name: member.name.split(' ')[0],
+    shift: index % 2 === 0 ? 'Morning Shift (9AM - 5PM)' : 'Evening Shift (1PM - 9PM)',
+    startDate: '2025-01-05',
+    endDate: '2025-01-10',
+    color: member.status === 'Online' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800',
+    index: index % 3
+  }));
+
+  // Original example shifts
+  const exampleShifts = [
     {
       id: 1,
       name: 'John S.',
