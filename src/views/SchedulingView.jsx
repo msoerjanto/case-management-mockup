@@ -11,22 +11,21 @@ function SchedulingView() {
   const schedules = [
     {
       id: 1,
-      name: "Main Shift Schedule",
+      name: "AML Ops Maker Schedule",
       team: "AML Operations",
-      totalMembers: 27,
-      activeMembers: 20,
+      totalMembers: 20,
+      activeMembers: 15,
       totalShifts: 40,
       lastUpdated: "2025-01-10"
     },
     {
       id: 2,
-      name: "Weekend Coverage",
+      name: "AML Ops Checker Schedule",
       team: "AML Operations",
-      totalMembers: 27,
-      activeMembers: 0,
-      totalShifts: 0,
-      lastUpdated: "2025-01-09",
-      status: "draft"
+      totalMembers: 7,
+      activeMembers: 5,
+      totalShifts: 14,
+      lastUpdated: "2025-01-09"
     }
   ];
 
