@@ -24,7 +24,8 @@ function Calendar() {
         startDate: startDate.toISOString().split('T')[0],
         endDate: endDate.toISOString().split('T')[0],
         color: member.status === 'Online' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800',
-        index: index % 4
+        index: index % 4,
+        weekNum // Add weekNum to help with positioning
       };
     });
 
@@ -49,8 +50,11 @@ function Calendar() {
   const getShiftsForDate = (date) => {
     if (!date) return [];
     const dateString = date.toISOString().split('T')[0];
+    const weekNum = Math.floor((date.getDate() - 1) / 7);
     return weeklyShifts.filter(shift => 
-      dateString >= shift.startDate && dateString <= shift.endDate
+      shift.weekNum === weekNum && 
+      dateString >= shift.startDate && 
+      dateString <= shift.endDate
     );
   };
 
@@ -128,7 +132,11 @@ function Calendar() {
                     style={{
                       width: `calc(${getShiftWidth(dayData.date, shift)} * 100% - 1rem)`,
                       top: `${shift.index * 28}px`, // Stack overlapping shifts
-                      maxWidth: 'none'
+                      maxWidth: 'none',
+                      zIndex: 10,
+                      position: 'absolute',
+                      left: '0.5rem',
+                      right: '0.5rem'
                     }}
                   >
                     <div className="flex items-center gap-1">
