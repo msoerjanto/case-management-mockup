@@ -1195,19 +1195,103 @@ function WorkflowDesigner() {
                                     </select>
                                     </div>
 
-                                    {/* Action-specific fields */}
-                                    {/* ... existing action type specific fields ... */}
+                                    {newAction.type === 'transition' && (
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Target State
+                                            </label>
+                                            <select
+                                                className="w-full rounded-md border border-gray-300 p-2 text-sm bg-white"
+                                                value={newAction.targetState || ''}
+                                                onChange={(e) => setNewAction({...newAction, targetState: e.target.value})}
+                                            >
+                                                <option value="">Select target state...</option>
+                                                {states.map(state => (
+                                                    <option key={state.id} value={state.id}>
+                                                        {state.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    )}
+
+                                    {newAction.type === 'assign' && (
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Assign To
+                                            </label>
+                                            <select
+                                                className="w-full rounded-md border border-gray-300 p-2 text-sm bg-white"
+                                                value={newAction.assignTo || ''}
+                                                onChange={(e) => setNewAction({...newAction, assignTo: e.target.value})}
+                                            >
+                                                <option value="">Select assignee...</option>
+                                                <optgroup label="Teams">
+                                                    {teams.map(team => (
+                                                        <option key={`team-${team.id}`} value={`team-${team.id}`}>
+                                                            👥 {team.name}
+                                                        </option>
+                                                    ))}
+                                                </optgroup>
+                                                <optgroup label="Users">
+                                                    {users.map(user => (
+                                                        <option key={`user-${user.id}`} value={`user-${user.id}`}>
+                                                            👤 {user.name}
+                                                        </option>
+                                                    ))}
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    )}
+
+                                    {newAction.type === 'webhook' && (
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                Integration
+                                            </label>
+                                            <select
+                                                className="w-full rounded-md border border-gray-300 p-2 text-sm bg-white"
+                                                value={newAction.integrationId || ''}
+                                                onChange={(e) => setNewAction({...newAction, integrationId: e.target.value})}
+                                            >
+                                                <option value="">Select integration...</option>
+                                                {availableIntegrations.map(integration => (
+                                                    <option key={integration.id} value={integration.id}>
+                                                        {integration.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    )}
 
                                     <div className="flex justify-end gap-2">
-                                    <Button variant="outline" onClick={() => setShowActionModal(false)}>
-                                        Cancel
-                                    </Button>
-                                    <Button 
-                                        className="bg-blue-600 hover:bg-blue-700"
-                                        onClick={handleAddAction}
-                                    >
-                                        Add Action
-                                    </Button>
+                                        <Button variant="outline" onClick={() => setShowActionModal(false)}>
+                                            Cancel
+                                        </Button>
+                                        <Button 
+                                            className="bg-blue-600 hover:bg-blue-700"
+                                            onClick={() => {
+                                                const actionToAdd = {
+                                                    id: Date.now(),
+                                                    type: newAction.type,
+                                                    ...newAction
+                                                };
+                                                setRecommendations(prev => prev.map(rec => {
+                                                    if (rec.id === activeRecommendationId) {
+                                                        return {
+                                                            ...rec,
+                                                            actions: [...rec.actions, actionToAdd]
+                                                        };
+                                                    }
+                                                    return rec;
+                                                }));
+                                                setShowActionModal(false);
+                                                setNewAction({});
+                                            }}
+                                            disabled={!newAction.type}
+                                        >
+                                            Add Action
+                                        </Button>
                                     </div>
                                 </div>
                                 </div>
