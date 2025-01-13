@@ -270,9 +270,9 @@ function CaseDetails({onBack}) {
               <h2 className="font-medium">Case Information</h2>
             </div>
             <div className="p-6 space-y-6">
-              {/* Status and Priority */}
-              <div className="flex gap-4">
-                <div className="flex-1 p-4 bg-gray-50 rounded-lg">
+              {/* Status, Priority, and Case Details */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="p-4 bg-gray-50 rounded-lg">
                   <div className="text-sm text-gray-500">Status</div>
                   <div className="mt-1">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
@@ -280,12 +280,40 @@ function CaseDetails({onBack}) {
                     </span>
                   </div>
                 </div>
-                <div className="flex-1 p-4 bg-gray-50 rounded-lg">
+                <div className="p-4 bg-gray-50 rounded-lg">
                   <div className="text-sm text-gray-500">Priority</div>
                   <div className="mt-1">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                       {caseData.priority}
                     </span>
+                  </div>
+                </div>
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <div className="text-sm text-gray-500">Case Type</div>
+                  <div className="mt-1 text-sm font-medium">
+                    Transaction Monitoring
+                  </div>
+                </div>
+              </div>
+
+              {/* Additional Case Details */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <div className="text-sm text-gray-500">Created Date</div>
+                  <div className="mt-1 text-sm font-medium">
+                    {new Date(caseData.createdAt).toLocaleDateString()}
+                  </div>
+                </div>
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <div className="text-sm text-gray-500">Created By</div>
+                  <div className="mt-1 text-sm font-medium">
+                    Sarah Johnson
+                  </div>
+                </div>
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <div className="text-sm text-gray-500">Deadline</div>
+                  <div className="mt-1 text-sm font-medium">
+                    {new Date(caseData.dueDate).toLocaleDateString()}
                   </div>
                 </div>
               </div>
