@@ -1,0 +1,462 @@
+import React, { useState } from 'react';
+import { 
+  User, 
+  Calendar, 
+  Clock, 
+  MessageSquare, 
+  FileText, 
+  Activity,
+  ChevronRight,
+  AlertCircle,
+  Paperclip,
+  Send,
+  ChevronDown
+} from 'lucide-react';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+
+function CaseDetails({onBack}) {
+  const caseData = {
+    id: 'CS-2024-001',
+    title: 'Account Verification Issue',
+    status: 'In Progress',
+    priority: 'High',
+    assignee: 'John Smith',
+    createdAt: '2024-01-09T10:00:00',
+    dueDate: '2024-01-11T18:00:00',
+    description: 'Customer is unable to verify their account through the mobile app.',
+    customer: {
+      name: 'Sarah Wilson',
+      email: 'sarah.w@example.com',
+      phone: '+1 234-567-8900'
+    },
+    // Available actions based on current state
+    availableActions: [
+        {
+          id: 'resolve',
+          label: 'Resolve Case',
+          description: 'Mark the case as resolved',
+          requiresComment: true,
+          nextStatus: 'Resolved'
+        },
+        {
+          id: 'escalate',
+          label: 'Escalate',
+          description: 'Escalate to senior support',
+          requiresReason: true,
+          nextStatus: 'Escalated'
+        },
+        {
+          id: 'request-info',
+          label: 'Request Information',
+          description: 'Request additional information from customer',
+          requiresMessage: true,
+          nextStatus: 'Pending Customer'
+        },
+        {
+          id: 'transfer',
+          label: 'Transfer Case',
+          description: 'Transfer to another team',
+          requiresTeam: true,
+          maintainsStatus: true
+        },
+        {
+            id: 'approve',
+            label: 'Approve Case',
+            description: 'Approve and proceed with the case',
+            requiresComment: true,    // Optional approval comment
+            requiresAttachment: false, // If approval needs document attachment
+            nextStatus: 'Approved',
+            isApprovalAction: true
+          },
+          {
+            id: 'reject',
+            label: 'Reject Case',
+            description: 'Reject the current case',
+            requiresComment: true,     // Require reason for rejection
+            requiresAttachment: false,
+            nextStatus: 'Rejected',
+            isApprovalAction: true
+          }
+      ]
+  };
+
+  const [selectedAction, setSelectedAction] = useState(null);
+  const [showActionsMenu, setShowActionsMenu] = useState(false);
+
+  return (
+    <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
+      {/* Header */}
+      <div className="flex justify-between items-start">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 text-sm text-gray-500">
+            <button 
+              onClick={onBack}
+              className="hover:text-blue-600 flex items-center gap-1"
+            >
+              <ChevronRight className="w-4 h-4 rotate-180" />
+              Back to Cases
+            </button>
+            <ChevronRight className="w-4 h-4" />
+            <span>{caseData.id}</span>
+          </div>
+          <h1 className="text-2xl font-bold">{caseData.title}</h1>
+        </div>
+
+        {/* Actions Menu */}
+        <div className="relative">
+          <Button 
+            variant="outline"
+            className="flex items-center gap-2"
+            onClick={() => setShowActionsMenu(!showActionsMenu)}
+          >
+            Actions
+            <ChevronDown className="w-4 h-4" />
+          </Button>
+
+          {showActionsMenu && (
+            <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border divide-y z-50">
+              {caseData.availableActions.map((action) => (
+                <button
+                  key={action.id}
+                  className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-start gap-3"
+                  onClick={() => {
+                    setSelectedAction(action);
+                    setShowActionsMenu(false);
+                  }}
+                >
+                  <div className="flex-1">
+                    <div className="font-medium">{action.label}</div>
+                    <div className="text-sm text-gray-500">{action.description}</div>
+                  </div>
+                  <ChevronRight className="w-4 h-4 mt-1 text-gray-400" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Action Modal */}
+      {selectedAction && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+            <h2 className="text-lg font-medium mb-4">{selectedAction.label}</h2>
+            
+            <div className="space-y-4">
+              {selectedAction.requiresComment && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Resolution Comment
+                  </label>
+                  <textarea 
+                    className="w-full rounded-md border border-gray-300 p-2"
+                    rows={3}
+                    placeholder="Enter resolution details..."
+                  />
+                </div>
+              )}
+
+              {selectedAction.requiresReason && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Escalation Reason
+                  </label>
+                  <select className="w-full rounded-md border border-gray-300 p-2">
+                    <option value="">Select reason...</option>
+                    <option>Technical complexity</option>
+                    <option>Priority escalation</option>
+                    <option>Customer request</option>
+                  </select>
+                </div>
+              )}
+
+              {selectedAction.requiresMessage && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Message to Customer
+                  </label>
+                  <textarea 
+                    className="w-full rounded-md border border-gray-300 p-2"
+                    rows={3}
+                    placeholder="Enter message to customer..."
+                  />
+                </div>
+              )}
+
+              {selectedAction.requiresTeam && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Select Team
+                  </label>
+                  <select className="w-full rounded-md border border-gray-300 p-2">
+                    <option value="">Choose team...</option>
+                    <option>Technical Support</option>
+                    <option>Billing Support</option>
+                    <option>Account Management</option>
+                  </select>
+                </div>
+              )}
+
+            {selectedAction?.isApprovalAction && (
+            <div className="space-y-4">
+                <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                    {selectedAction.id === 'approve' ? 'Approval' : 'Rejection'} Comment
+                </label>
+                <textarea 
+                    className="w-full rounded-md border border-gray-300 p-2"
+                    rows={3}
+                    placeholder={`Enter ${selectedAction.id === 'approve' ? 'approval' : 'rejection'} comments...`}
+                />
+                </div>
+                
+                {selectedAction.requiresAttachment && (
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Supporting Document
+                    </label>
+                    <div className="mt-1 flex items-center">
+                    <Button variant="outline" size="sm">
+                        <Paperclip className="w-4 h-4 mr-2" />
+                        Attach File
+                    </Button>
+                    </div>
+                </div>
+                )}
+
+                <div className="bg-gray-50 p-4 rounded-lg">
+                <div className="text-sm font-medium text-gray-700 mb-2">
+                    Approval Summary
+                </div>
+                <div className="text-sm text-gray-600 space-y-1">
+                    <div>Case ID: {caseData.id}</div>
+                    <div>Current Status: {caseData.status}</div>
+                    <div>New Status: {selectedAction.nextStatus}</div>
+                </div>
+                </div>
+            </div>
+            )}
+
+              <div className="flex justify-end gap-2 mt-6">
+                <Button 
+                  variant="outline"
+                  onClick={() => setSelectedAction(null)}
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  className="bg-blue-600 hover:bg-blue-700"
+                  onClick={() => {
+                    // Handle action submission
+                    setSelectedAction(null);
+                  }}
+                >
+                  Confirm
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Main Content */}
+      <div className="grid grid-cols-3 gap-6">
+        {/* Left Column - Main Information */}
+        <div className="col-span-2 space-y-6">
+          {/* Case Information */}
+          <div className="bg-white rounded-lg border">
+            <div className="border-b px-6 py-3">
+              <h2 className="font-medium">Case Information</h2>
+            </div>
+            <div className="p-6 space-y-6">
+              {/* Status and Priority */}
+              <div className="flex gap-4">
+                <div className="flex-1 p-4 bg-gray-50 rounded-lg">
+                  <div className="text-sm text-gray-500">Status</div>
+                  <div className="mt-1">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                      {caseData.status}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex-1 p-4 bg-gray-50 rounded-lg">
+                  <div className="text-sm text-gray-500">Priority</div>
+                  <div className="mt-1">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                      {caseData.priority}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div>
+                <h3 className="text-sm font-medium text-gray-700 mb-2">Description</h3>
+                <p className="text-gray-600">{caseData.description}</p>
+              </div>
+
+              {/* Timeline */}
+              <div className="border-t pt-6">
+                <h3 className="text-sm font-medium text-gray-700 mb-4">Timeline</h3>
+                <div className="space-y-4">
+                  {/* Timeline Item */}
+                  <div className="flex gap-4">
+                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                      <Activity className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium">Status changed to In Progress</div>
+                      <div className="text-xs text-gray-500">2 hours ago by {caseData.assignee}</div>
+                    </div>
+                  </div>
+                  {/* More timeline items... */}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Comments Section */}
+          <div className="bg-white rounded-lg border">
+            <div className="border-b px-6 py-3">
+              <h2 className="font-medium">Comments</h2>
+            </div>
+            <div className="p-6 space-y-6">
+              {/* Comment Item */}
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium">
+                    JS
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <span className="font-medium">John Smith</span>
+                        <span className="text-gray-500 text-sm ml-2">2 hours ago</span>
+                      </div>
+                    </div>
+                    <div className="mt-2 text-gray-600">
+                      Reached out to customer for additional information about the verification issue.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Add Comment */}
+              <div className="flex gap-4 mt-4">
+                <div className="flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+                    <User className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="relative">
+                    <Input
+                      className="pr-24"
+                      placeholder="Add a comment..."
+                    />
+                    <div className="absolute right-2 top-2 flex gap-2">
+                      <button className="p-1 hover:bg-gray-100 rounded">
+                        <Paperclip className="w-4 h-4 text-gray-400" />
+                      </button>
+                      <button className="p-1 hover:bg-gray-100 rounded">
+                        <Send className="w-4 h-4 text-gray-400" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column - Details and Related Info */}
+        <div className="space-y-6">
+          {/* Details Card */}
+          <div className="bg-white rounded-lg border">
+            <div className="border-b px-6 py-3">
+              <h2 className="font-medium">Details</h2>
+            </div>
+            <div className="p-6">
+              <dl className="space-y-4">
+                <div>
+                  <dt className="text-sm font-medium text-gray-500">Assignee</dt>
+                  <dd className="mt-1 flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs">
+                      JS
+                    </div>
+                    <span>{caseData.assignee}</span>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-medium text-gray-500">Created</dt>
+                  <dd className="mt-1 flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-gray-400" />
+                    <span>Jan 9, 2024</span>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-sm font-medium text-gray-500">Due Date</dt>
+                  <dd className="mt-1 flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-gray-400" />
+                    <span>Jan 11, 2024</span>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          {/* Customer Information */}
+          <div className="bg-white rounded-lg border">
+            <div className="border-b px-6 py-3">
+              <h2 className="font-medium">Customer</h2>
+            </div>
+            <div className="p-6">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                    SW
+                  </div>
+                  <div>
+                    <div className="font-medium">{caseData.customer.name}</div>
+                    <div className="text-sm text-gray-500">{caseData.customer.email}</div>
+                  </div>
+                </div>
+                <div className="text-sm">
+                  <div className="text-gray-500">Phone</div>
+                  <div>{caseData.customer.phone}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Attachments */}
+          <div className="bg-white rounded-lg border">
+            <div className="border-b px-6 py-3">
+              <h2 className="font-medium">Attachments</h2>
+            </div>
+            <div className="p-6">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                  <div className="flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-gray-400" />
+                    <span className="text-sm">screenshot.png</span>
+                  </div>
+                  <Button variant="ghost" size="sm">View</Button>
+                </div>
+              </div>
+              <Button variant="outline" className="w-full mt-4">
+                <Paperclip className="w-4 h-4 mr-2" />
+                Add Files
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export { CaseDetails };
