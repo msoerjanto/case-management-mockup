@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   User, 
   Calendar, 
@@ -83,6 +83,66 @@ function CaseDetails({onBack}) {
 
   const [selectedAction, setSelectedAction] = useState(null);
   const [showActionsMenu, setShowActionsMenu] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const timelineItems = useMemo(() => [
+    {
+      title: "Status changed to In Progress",
+      timestamp: "2 hours ago",
+      user: caseData.assignee,
+      icon: <Activity className="w-4 h-4 text-blue-600" />,
+      iconBg: "bg-blue-100"
+    },
+    {
+      title: "Comment added",
+      timestamp: "3 hours ago",
+      user: "Sarah Johnson",
+      icon: <MessageSquare className="w-4 h-4 text-green-600" />,
+      iconBg: "bg-green-100"
+    },
+    {
+      title: "Case assigned to team",
+      timestamp: "4 hours ago",
+      user: "System",
+      icon: <User className="w-4 h-4 text-purple-600" />,
+      iconBg: "bg-purple-100"
+    },
+    {
+      title: "Document uploaded: verification.pdf",
+      timestamp: "5 hours ago",
+      user: "Michael Brown",
+      icon: <FileText className="w-4 h-4 text-orange-600" />,
+      iconBg: "bg-orange-100"
+    },
+    {
+      title: "Priority changed to High",
+      timestamp: "6 hours ago",
+      user: "System",
+      icon: <AlertCircle className="w-4 h-4 text-red-600" />,
+      iconBg: "bg-red-100"
+    },
+    {
+      title: "Case created",
+      timestamp: "6 hours ago",
+      user: "System",
+      icon: <Plus className="w-4 h-4 text-gray-600" />,
+      iconBg: "bg-gray-100"
+    },
+    {
+      title: "Customer information updated",
+      timestamp: "5 hours ago",
+      user: "John Smith",
+      icon: <User className="w-4 h-4 text-blue-600" />,
+      iconBg: "bg-blue-100"
+    },
+    {
+      title: "Due date updated",
+      timestamp: "4 hours ago",
+      user: "System",
+      icon: <Clock className="w-4 h-4 text-yellow-600" />,
+      iconBg: "bg-yellow-100"
+    }
+  ], [caseData.assignee]);
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
@@ -328,17 +388,41 @@ function CaseDetails({onBack}) {
               <div className="border-t pt-6">
                 <h3 className="text-sm font-medium text-gray-700 mb-4">Timeline</h3>
                 <div className="space-y-4">
-                  {/* Timeline Item */}
-                  <div className="flex gap-4">
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                      <Activity className="w-4 h-4 text-blue-600" />
+                  {timelineItems.slice(currentPage * 5, (currentPage + 1) * 5).map((item, index) => (
+                    <div key={index} className="flex gap-4">
+                      <div className={`w-8 h-8 rounded-full ${item.iconBg} flex items-center justify-center`}>
+                        {item.icon}
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium">{item.title}</div>
+                        <div className="text-xs text-gray-500">{item.timestamp} by {item.user}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-sm font-medium">Status changed to In Progress</div>
-                      <div className="text-xs text-gray-500">2 hours ago by {caseData.assignee}</div>
-                    </div>
+                  ))}
+                </div>
+                {/* Pagination */}
+                <div className="flex justify-between items-center mt-4 pt-4 border-t">
+                  <div className="text-sm text-gray-500">
+                    Showing {currentPage * 5 + 1} to {Math.min((currentPage + 1) * 5, timelineItems.length)} of {timelineItems.length} entries
                   </div>
-                  {/* More timeline items... */}
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(prev => Math.max(0, prev - 1))}
+                      disabled={currentPage === 0}
+                    >
+                      Previous
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(prev => prev + 1)}
+                      disabled={(currentPage + 1) * 5 >= timelineItems.length}
+                    >
+                      Next
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
