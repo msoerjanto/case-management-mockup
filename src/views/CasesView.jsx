@@ -12,7 +12,7 @@ function CasesView({ onCaseClick }) {
     {
       id: 'CS-2024-005',
       title: 'Account Verification Issue',
-      type: 'Account Issues',
+      type: 'Transaction Monitoring',
       priority: 'High',
       createdAt: '2024-01-10T10:00:00',
       failedAssignmentReason: 'No available team members'
@@ -34,6 +34,7 @@ function CasesView({ onCaseClick }) {
     {
       id: 'CS-2024-005',
       title: 'Payment Processing Error',
+      type: 'Customer Due Diligence',
       status: 'New',
       statusColor: 'bg-blue-100 text-blue-800',
       priority: 'High',
@@ -138,7 +139,7 @@ function CasesView({ onCaseClick }) {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Case ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Case Type</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Priority</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Assignment</th>
@@ -154,7 +155,7 @@ function CasesView({ onCaseClick }) {
                   onClick={() => onCaseClick(caseItem.id)}
                 >
                   <td className="px-6 py-4 text-sm">{caseItem.id}</td>
-                  <td className="px-6 py-4 text-sm">{caseItem.title}</td>
+                  <td className="px-6 py-4 text-sm">{caseItem.type}</td>
                   <td className="px-6 py-4">
                     <span className={`px-2 py-1 text-xs font-medium rounded-full ${caseItem.statusColor}`}>
                       {caseItem.status}
