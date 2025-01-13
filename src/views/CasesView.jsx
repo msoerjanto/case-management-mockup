@@ -25,6 +25,7 @@ function CasesView({ onCaseClick }) {
     {
       id: 'CS-2024-001',
       title: 'Account Verification Issue',
+      createdAt: '2024-01-08T14:30:00',
       type: 'Transaction Monitoring',
       status: 'In Progress',
       statusColor: 'bg-yellow-100 text-yellow-800',
@@ -37,6 +38,7 @@ function CasesView({ onCaseClick }) {
       id: 'CS-2024-005',
       title: 'Payment Processing Error',
       type: 'Customer Due Diligence',
+      createdAt: '2024-01-10T09:15:00',
       status: 'New',
       statusColor: 'bg-blue-100 text-blue-800',
       priority: 'High',
@@ -119,6 +121,28 @@ function CasesView({ onCaseClick }) {
                   <option value="medium">Medium</option>
                   <option value="low">Low</option>
                 </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Date Range
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-xs text-gray-500 mb-1">From</label>
+                    <input
+                      type="date"
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-gray-500 mb-1">To</label>
+                    <input
+                      type="date"
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="flex justify-end gap-2 mt-6">
@@ -216,6 +240,7 @@ function CasesView({ onCaseClick }) {
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Case ID</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Case Type</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Created Date</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Priority</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Assignment</th>
@@ -232,6 +257,7 @@ function CasesView({ onCaseClick }) {
                 >
                   <td className="px-6 py-4 text-sm">{caseItem.id}</td>
                   <td className="px-6 py-4 text-sm">{caseItem.type}</td>
+                  <td className="px-6 py-4 text-sm">{new Date(caseItem.createdAt).toLocaleDateString()}</td>
                   <td className="px-6 py-4">
                     <span className={`px-2 py-1 text-xs font-medium rounded-full ${caseItem.statusColor}`}>
                       {caseItem.status}
