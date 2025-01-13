@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { Plus, Search, Filter, AlertTriangle, Clock } from 'lucide-react';
+import { Plus, Search, Filter, AlertTriangle, Clock, X } from 'lucide-react';
 
 function CasesView({ onCaseClick }) {
   const [hasUnassignedCases, setHasUnassignedCases] = useState(true);
   const [showUnassignedOnly, setShowUnassignedOnly] = useState(false);
+  const [showFiltersModal, setShowFiltersModal] = useState(false);
 
   // Example unassigned cases data
   const unassignedCases = [
@@ -59,6 +60,85 @@ function CasesView({ onCaseClick }) {
           New Case
         </Button>
       </div>
+
+      {/* Filters Modal */}
+      {showFiltersModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-medium">Filter Cases</h2>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowFiltersModal(false)}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Case Type
+                </label>
+                <select 
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  defaultValue=""
+                >
+                  <option value="" disabled>Select Case Type</option>
+                  <option value="tm">Transaction Monitoring</option>
+                  <option value="cdd">Customer Due Diligence</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Status
+                </label>
+                <select 
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  defaultValue=""
+                >
+                  <option value="" disabled>Select Status</option>
+                  <option value="new">New</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="completed">Completed</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Priority
+                </label>
+                <select 
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  defaultValue=""
+                >
+                  <option value="" disabled>Select Priority</option>
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </div>
+
+              <div className="flex justify-end gap-2 mt-6">
+                <Button 
+                  variant="outline"
+                  onClick={() => setShowFiltersModal(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  className="bg-blue-600 hover:bg-blue-700"
+                  onClick={() => setShowFiltersModal(false)}
+                >
+                  Apply Filters
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Cases Stats */}
       <div className="grid grid-cols-4 gap-4">
@@ -118,15 +198,10 @@ function CasesView({ onCaseClick }) {
           >
             Unassigned Cases
           </Button>
-          <select 
-            className="h-10 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            defaultValue=""
+          <Button 
+            variant="outline"
+            onClick={() => setShowFiltersModal(true)}
           >
-            <option value="" disabled>Select Case Type</option>
-            <option value="tm">Transaction Monitoring</option>
-            <option value="cdd">Customer Due Diligence</option>
-          </select>
-          <Button variant="outline">
             <Filter className="w-4 h-4 mr-2" />
             More Filters
           </Button>
