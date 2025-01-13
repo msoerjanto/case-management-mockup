@@ -10,7 +10,8 @@ import {
   AlertCircle,
   Paperclip,
   Send,
-  ChevronDown
+  ChevronDown,
+  Plus
 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
