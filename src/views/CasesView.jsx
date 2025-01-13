@@ -24,6 +24,7 @@ function CasesView({ onCaseClick }) {
     {
       id: 'CS-2024-001',
       title: 'Account Verification Issue',
+      type: 'Transaction Monitoring',
       status: 'In Progress',
       statusColor: 'bg-yellow-100 text-yellow-800',
       priority: 'High',
