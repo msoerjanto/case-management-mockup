@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { format } from 'date-fns';
 import { 
   User, 
   Calendar, 
@@ -85,6 +86,17 @@ function CaseDetails({onBack}) {
   const [selectedAction, setSelectedAction] = useState(null);
   const [showActionsMenu, setShowActionsMenu] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
+  const [showAttachmentModal, setShowAttachmentModal] = useState(false);
+
+  // Mock attachment data - would come from API
+  const attachmentDetails = {
+    filename: 'screenshot.png',
+    description: 'Customer account verification error screenshot',
+    uploadedBy: 'John Smith',
+    uploadedAt: '2024-01-13T15:30:00',
+    fileSize: '2.4 MB',
+    fileType: 'image/png'
+  };
 
   const timelineItems = useMemo(() => [
     {
@@ -557,7 +569,13 @@ function CaseDetails({onBack}) {
                     <FileText className="w-4 h-4 text-gray-400" />
                     <span className="text-sm">screenshot.png</span>
                   </div>
-                  <Button variant="ghost" size="sm">View</Button>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setShowAttachmentModal(true)}
+                  >
+                    View
+                  </Button>
                 </div>
               </div>
               <Button variant="outline" className="w-full mt-4">
@@ -568,6 +586,76 @@ function CaseDetails({onBack}) {
           </div>
         </div>
       </div>
+
+      {/* Attachment View Modal */}
+      {showAttachmentModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-lg w-full">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-medium">Document Details</h2>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowAttachmentModal(false)}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
+                <div className="h-10 w-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                  <FileText className="h-5 w-5 text-blue-600" />
+                </div>
+                <div>
+                  <div className="font-medium">{attachmentDetails.filename}</div>
+                  <div className="text-sm text-gray-500">{attachmentDetails.fileSize} • {attachmentDetails.fileType}</div>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Description
+                </label>
+                <p className="text-sm text-gray-600">
+                  {attachmentDetails.description}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Uploaded By
+                  </label>
+                  <p className="text-sm text-gray-600">
+                    {attachmentDetails.uploadedBy}
+                  </p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Upload Date
+                  </label>
+                  <p className="text-sm text-gray-600">
+                    {format(new Date(attachmentDetails.uploadedAt), 'PPp')}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 mt-6">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowAttachmentModal(false)}
+                >
+                  Close
+                </Button>
+                <Button className="bg-blue-600 hover:bg-blue-700">
+                  Download
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
