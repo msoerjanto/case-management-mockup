@@ -16,18 +16,12 @@ import {
 export function Sidebar({ activeView, setActiveView }) {
   const [showAdvancedMenu, setShowAdvancedMenu] = useState(false);
 
-  const advancedMenuItems = [
+  const futureFeatures = [
     {
       id: 'integrations',
       label: 'Integrations',
       icon: <Link2 className="w-4 h-4 mr-2" />,
       view: 'integrations'
-    },
-    {
-      id: 'sla',
-      label: 'SLA & Alerts',
-      icon: <Bell className="w-4 h-4 mr-2" />,
-      view: 'sla'
     }
   ];
   return (
@@ -87,6 +81,15 @@ export function Sidebar({ activeView, setActiveView }) {
             </div>
 
             <div className="p-2 hover:bg-gray-100 rounded cursor-pointer"
+                 onClick={() => setActiveView('sla')}
+            >
+              <div className="flex items-center text-sm">
+                <Bell className="w-4 h-4 mr-2" />
+                SLA & Alerts
+              </div>
+            </div>
+
+            <div className="p-2 hover:bg-gray-100 rounded cursor-pointer"
                 onClick={() => setActiveView('settings')}
             >
               <div className="flex items-center text-sm">
@@ -99,12 +102,12 @@ export function Sidebar({ activeView, setActiveView }) {
       </div>
 
       {/* Advanced Menu Toggle */}
-      <div className="mt-auto border-t pt-4">
+      <div className="border-t pt-4 mt-auto">
         <button
           className="w-full p-2 hover:bg-gray-100 rounded flex items-center justify-between text-sm"
           onClick={() => setShowAdvancedMenu(!showAdvancedMenu)}
         >
-          <span className="font-medium">Advanced Features</span>
+          <span className="font-medium">Future Features</span>
           {showAdvancedMenu ? (
             <ChevronDown className="w-4 h-4" />
           ) : (
