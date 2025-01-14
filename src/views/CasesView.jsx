@@ -301,7 +301,7 @@ function CasesView() {
                           <div className="text-sm font-medium">{caseItem.assignedTo.name}</div>
                           <div className="text-xs text-gray-500">
                             {mockCases[caseItem.id]?.assignee ? 
-                              teamMembers.find(m => m.name === mockCases[caseItem.id].assignee)?.role || 'Unknown Role'
+                              teamMembers.find(m => m.name.includes(mockCases[caseItem.id].assignee))?.role || 'Unassigned'
                               : 'Unassigned'
                             }
                           </div>
