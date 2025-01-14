@@ -20,8 +20,8 @@ import { Input } from '../ui/input';
 
 function CaseDetails({onBack}) {
   const caseData = {
-    id: 'CS-2024-001',
-    title: 'Account Verification Issue',
+    id: 'TM-2024-001',
+    title: 'High Value Transaction Alert',
     status: 'In Progress',
     priority: 'High',
     assignee: 'John Smith',

@@ -23,8 +23,8 @@ function CasesView({ onCaseClick }) {
   // Example all cases data
   const cases = [
     {
-      id: 'CS-2024-001',
-      title: 'Account Verification Issue',
+      id: 'TM-2024-001',
+      title: 'High Value Transaction Alert',
       createdAt: '2024-01-08T14:30:00',
       type: 'Transaction Monitoring',
       status: 'In Progress',
@@ -40,9 +40,9 @@ function CasesView({ onCaseClick }) {
       dueIn: '2 hours'
     },
     {
-      id: 'CS-2024-005',
-      title: 'Payment Processing Error',
-      type: 'Customer Due Diligence',
+      id: 'TM-2024-005',
+      title: 'Multiple Transactions Pattern Alert',
+      type: 'Transaction Monitoring',
       createdAt: '2024-01-10T09:15:00',
       status: 'New',
       statusColor: 'bg-blue-100 text-blue-800',
