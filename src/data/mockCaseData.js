@@ -93,6 +93,10 @@ export const mockCases = {
       name: 'PT Maju Bersama',
       email: 'contact@majubersama.co.id',
       phone: '+62 21-5555-6666'
+    },
+    customFields: {
+      sourceOfFund: 'Pendapatan dari bisnis ekspor-impor',
+      otherSourceOfFund: ['Investasi properti', 'Dividen saham']
     }
   },
   'CDD-2024-002': {

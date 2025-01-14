@@ -19,6 +19,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 
 import { mockCases } from '../../data/mockCaseData';
+import { Textarea } from '../ui/textarea';
 
 function CaseDetails({ caseId, onBack }) {
   const caseData = mockCases[caseId] ? {
@@ -365,6 +366,69 @@ function CaseDetails({ caseId, onBack }) {
                 <h3 className="text-sm font-medium text-gray-700 mb-2">Description</h3>
                 <p className="text-gray-600">{caseData.description}</p>
               </div>
+
+              {/* Customer Due Diligence Questionnaire */}
+              {caseData.type === 'Customer Due Diligence' && (
+                <div className="border-t pt-6">
+                  <h3 className="text-sm font-medium text-gray-700 mb-4">Customer Due Diligence Questionnaire</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Jelaskan asal sumber kekayaan Nasabah yang ditempatkan pada Bank
+                      </label>
+                      <Textarea
+                        value={caseData.customFields?.sourceOfFund || ''}
+                        onChange={(e) => {
+                          // Handle change
+                        }}
+                        className="mt-1 block w-full"
+                        rows={3}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Apakah Nasabah memiliki penghasilan tambahan lainnya?
+                      </label>
+                      <div className="mt-2 space-y-2">
+                        {caseData.customFields?.otherSourceOfFund?.map((source, index) => (
+                          <div key={index} className="flex items-center">
+                            <Input
+                              type="text"
+                              value={source}
+                              onChange={(e) => {
+                                // Handle change
+                              }}
+                              className="flex-grow"
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              className="ml-2"
+                              onClick={() => {
+                                // Handle remove
+                              }}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ))}
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            // Handle add new source
+                          }}
+                        >
+                          <Plus className="h-4 w-4 mr-2" />
+                          Add Source
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Timeline */}
               <div className="border-t pt-6">
