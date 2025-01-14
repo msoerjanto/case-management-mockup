@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button } from "../components/ui/button";
+import { mockCases } from "../data/mockCaseData";
 import { Input } from "../components/ui/input";
 import { Plus, Search, Filter, AlertTriangle, Clock, X } from 'lucide-react';
 
@@ -20,38 +21,23 @@ function CasesView({ onCaseClick }) {
     }
   ];
 
-  // Example all cases data
-  const cases = [
-    {
-      id: 'TM-2024-001',
-      title: 'High Value Transaction Alert',
-      createdAt: '2024-01-08T14:30:00',
-      type: 'Transaction Monitoring',
-      status: 'In Progress',
-      statusColor: 'bg-yellow-100 text-yellow-800',
-      priority: 'High',
-      priorityColor: 'bg-red-100 text-red-800',
-      assignedTo: {
-        id: 1,
-        name: 'Rudyanto S. Muharminto',
-        email: 'rudyanto.muharminto@superbank.id',
-        role: '91 - AML Ops Checker'
-      },
-      dueIn: '2 hours'
-    },
-    {
-      id: 'TM-2024-005',
-      title: 'Multiple Transactions Pattern Alert',
-      type: 'Transaction Monitoring',
-      createdAt: '2024-01-10T09:15:00',
-      status: 'New',
-      statusColor: 'bg-blue-100 text-blue-800',
-      priority: 'High',
-      priorityColor: 'bg-red-100 text-red-800',
-      assignedTo: null,
-      dueIn: '1 hour'
-    }
-  ];
+  // Import mock cases data
+  const cases = Object.values(mockCases).map(caseData => ({
+    id: caseData.id,
+    title: caseData.title,
+    createdAt: caseData.createdAt,
+    type: caseData.type,
+    status: caseData.status,
+    statusColor: caseData.status === 'New' ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800',
+    priority: caseData.priority,
+    priorityColor: caseData.priority === 'High' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800',
+    assignedTo: caseData.assignee ? {
+      id: 1,
+      name: caseData.assignee,
+      role: '90 - AML Ops Maker'
+    } : null,
+    dueIn: '2 hours'
+  }));
 
   const displayedCases = showUnassignedOnly 
     ? cases.filter(c => !c.assignedTo)
