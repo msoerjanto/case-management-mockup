@@ -21,7 +21,7 @@ import { Input } from '../ui/input';
 import { mockCases } from '../../data/mockCaseData';
 
 function CaseDetails({ caseId, onBack }) {
-  const caseData = {
+  const caseData = mockCases[caseId] ? {
     ...mockCases[caseId],
     availableActions: [
       {
@@ -320,7 +320,9 @@ function CaseDetails({ caseId, onBack }) {
                 <div className="p-4 bg-gray-50 rounded-lg">
                   <div className="text-sm text-gray-500">Status</div>
                   <div className="mt-1">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      caseData.status === 'New' ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800'
+                    }`}>
                       {caseData.status}
                     </span>
                   </div>
@@ -328,7 +330,9 @@ function CaseDetails({ caseId, onBack }) {
                 <div className="p-4 bg-gray-50 rounded-lg">
                   <div className="text-sm text-gray-500">Priority</div>
                   <div className="mt-1">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      caseData.priority === 'High' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'
+                    }`}>
                       {caseData.priority}
                     </span>
                   </div>
@@ -491,14 +495,14 @@ function CaseDetails({ caseId, onBack }) {
                   <dt className="text-sm font-medium text-gray-500">Created</dt>
                   <dd className="mt-1 flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-gray-400" />
-                    <span>Jan 9, 2024</span>
+                    <span>{new Date(caseData.createdAt).toLocaleDateString()}</span>
                   </dd>
                 </div>
                 <div>
                   <dt className="text-sm font-medium text-gray-500">Due Date</dt>
                   <dd className="mt-1 flex items-center gap-2">
                     <Clock className="w-4 h-4 text-gray-400" />
-                    <span>Jan 11, 2024</span>
+                    <span>{new Date(caseData.dueDate).toLocaleDateString()}</span>
                   </dd>
                 </div>
               </dl>
