@@ -19,7 +19,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 
 import { mockCases } from '../../data/mockCaseData';
-import { Textarea } from '../ui/textarea';
+import { Textarea } from '../../ui/textarea';
 
 function CaseDetails({ caseId, onBack }) {
   const caseData = mockCases[caseId] ? {
