@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Briefcase, 
   List, 
@@ -8,10 +8,28 @@ import {
   Bell, 
   Link2,
   BarChart,
-  Settings
+  Settings,
+  ChevronRight,
+  ChevronDown
 } from 'lucide-react';
 
 export function Sidebar({ activeView, setActiveView }) {
+  const [showAdvancedMenu, setShowAdvancedMenu] = useState(false);
+
+  const advancedMenuItems = [
+    {
+      id: 'integrations',
+      label: 'Integrations',
+      icon: <Link2 className="w-4 h-4 mr-2" />,
+      view: 'integrations'
+    },
+    {
+      id: 'sla',
+      label: 'SLA & Alerts',
+      icon: <Bell className="w-4 h-4 mr-2" />,
+      view: 'sla'
+    }
+  ];
   return (
     <div className="w-64 h-screen bg-white border-r flex-shrink-0 overflow-y-auto">
       <div className="p-4">
@@ -61,24 +79,6 @@ export function Sidebar({ activeView, setActiveView }) {
               </div>
             </div>
 
-            <div className="p-2 hover:bg-gray-100 rounded cursor-pointer"
-                 onClick={() => setActiveView('integrations')}
-            >
-              <div className="flex items-center text-sm">
-                <Link2 className="w-4 h-4 mr-2" />
-                Integrations
-              </div>
-            </div>
-
-            <div className="p-2 hover:bg-gray-100 rounded cursor-pointer"
-                 onClick={() => setActiveView('sla')}
-            >
-              <div className="flex items-center text-sm">
-                <Bell className="w-4 h-4 mr-2" />
-                SLA & Alerts
-              </div>
-            </div>
-
             <div className="p-2 hover:bg-gray-100 rounded cursor-pointer">
               <div className="flex items-center text-sm">
                 <BarChart className="w-4 h-4 mr-2" />
@@ -96,6 +96,41 @@ export function Sidebar({ activeView, setActiveView }) {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Advanced Menu Toggle */}
+      <div className="mt-auto border-t pt-4">
+        <button
+          className="w-full p-2 hover:bg-gray-100 rounded flex items-center justify-between text-sm"
+          onClick={() => setShowAdvancedMenu(!showAdvancedMenu)}
+        >
+          <span className="font-medium">Advanced Features</span>
+          {showAdvancedMenu ? (
+            <ChevronDown className="w-4 h-4" />
+          ) : (
+            <ChevronRight className="w-4 h-4" />
+          )}
+        </button>
+
+        {/* Advanced Menu Items */}
+        {showAdvancedMenu && (
+          <div className="mt-2 space-y-1">
+            {advancedMenuItems.map(item => (
+              <div
+                key={item.id}
+                className={`p-2 rounded cursor-pointer ${
+                  activeView === item.view ? 'bg-gray-100 text-blue-600' : 'hover:bg-gray-100'
+                }`}
+                onClick={() => setActiveView(item.view)}
+              >
+                <div className="flex items-center text-sm">
+                  {item.icon}
+                  {item.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
