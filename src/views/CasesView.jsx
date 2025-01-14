@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { CaseDetails } from '../components/cases/CaseDetails';
 import { Button } from "../components/ui/button";
 import { mockCases } from "../data/mockCaseData";
 import { Input } from "../components/ui/input";
 import { Plus, Search, Filter, AlertTriangle, Clock, X } from 'lucide-react';
 
-function CasesView({ onCaseClick }) {
+function CasesView() {
+  const [selectedCaseId, setSelectedCaseId] = useState(null);
   const [hasUnassignedCases, setHasUnassignedCases] = useState(true);
   const [showUnassignedOnly, setShowUnassignedOnly] = useState(false);
   const [showFiltersModal, setShowFiltersModal] = useState(false);
@@ -44,7 +46,14 @@ function CasesView({ onCaseClick }) {
     : cases;
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8 space-y-6">
+    <>
+      {selectedCaseId ? (
+        <CaseDetails 
+          caseId={selectedCaseId} 
+          onBack={() => setSelectedCaseId(null)}
+        />
+      ) : (
+        <div className="max-w-7xl mx-auto px-6 py-8 space-y-6">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-bold">Cases</h1>
@@ -261,7 +270,7 @@ function CasesView({ onCaseClick }) {
                 <tr 
                   key={caseItem.id} 
                   className="hover:bg-gray-50 cursor-pointer"
-                  onClick={() => onCaseClick && onCaseClick(caseItem.id)}
+                  onClick={() => setSelectedCaseId(caseItem.id)}
                 >
                   <td className="px-6 py-4 text-sm">{caseItem.id}</td>
                   <td className="px-6 py-4 text-sm">{caseItem.type}</td>
@@ -312,7 +321,9 @@ function CasesView({ onCaseClick }) {
           </table>
         </div>
       </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }
 
