@@ -23,6 +23,7 @@ import { mockCases } from '../../data/mockCaseData';
 function CaseDetails({ caseId, onBack }) {
   const caseData = mockCases[caseId] ? {
     ...mockCases[caseId],
+    assignee: mockCases[caseId].assignee || 'Unassigned',
     availableActions: [
       {
         id: 'resolve',
