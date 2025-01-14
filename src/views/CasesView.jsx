@@ -275,7 +275,7 @@ function CasesView({ onCaseClick }) {
                 <tr 
                   key={caseItem.id} 
                   className="hover:bg-gray-50 cursor-pointer"
-                  onClick={() => onCaseClick(caseItem.id)}
+                  onClick={() => onCaseClick && onCaseClick(caseItem.id)}
                 >
                   <td className="px-6 py-4 text-sm">{caseItem.id}</td>
                   <td className="px-6 py-4 text-sm">{caseItem.type}</td>
