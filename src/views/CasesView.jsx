@@ -276,7 +276,12 @@ function CasesView() {
                   <td className="px-6 py-4 text-sm">{caseItem.type}</td>
                   <td className="px-6 py-4 text-sm">{new Date(caseItem.createdAt).toLocaleDateString()}</td>
                   <td className="px-6 py-4">
-                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${caseItem.statusColor}`}>
+                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                      caseItem.status === 'New' ? 'bg-blue-100 text-blue-800' :
+                      caseItem.status === 'Rejected' ? 'bg-red-100 text-red-800' :
+                      caseItem.status === 'Completed' ? 'bg-green-100 text-green-800' :
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
                       {caseItem.status}
                     </span>
                   </td>
