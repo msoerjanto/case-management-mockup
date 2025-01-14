@@ -21,16 +21,16 @@ import { Input } from '../ui/input';
 import { mockCases } from '../../data/mockCaseData';
 
 function CaseDetails({ caseId, onBack }) {
-  const caseData = mockCases[caseId];
-    // Available actions based on current state
+  const caseData = {
+    ...mockCases[caseId],
     availableActions: [
-        {
-          id: 'resolve',
-          label: 'Resolve Case',
-          description: 'Mark the case as resolved',
-          requiresComment: true,
-          nextStatus: 'Resolved'
-        },
+      {
+        id: 'resolve',
+        label: 'Resolve Case',
+        description: 'Mark the case as resolved',
+        requiresComment: true,
+        nextStatus: 'Resolved'
+      },
         {
           id: 'escalate',
           label: 'Escalate',
