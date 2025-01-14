@@ -31,29 +31,29 @@ function CaseDetails({ caseId, onBack }) {
         requiresComment: true,
         nextStatus: 'Resolved'
       },
-        {
-          id: 'escalate',
-          label: 'Escalate',
-          description: 'Escalate to senior support',
-          requiresReason: true,
-          nextStatus: 'Escalated'
-        },
-        {
-          id: 'request-info',
-          label: 'Request Information',
-          description: 'Request additional information from customer',
-          requiresMessage: true,
-          nextStatus: 'Pending Customer'
-        },
-        {
-          id: 'transfer',
-          label: 'Transfer Case',
-          description: 'Transfer to another team',
-          requiresTeam: true,
-          maintainsStatus: true
-        }
-      ]
-  };
+      {
+        id: 'escalate',
+        label: 'Escalate',
+        description: 'Escalate to senior support',
+        requiresReason: true,
+        nextStatus: 'Escalated'
+      },
+      {
+        id: 'request-info',
+        label: 'Request Information',
+        description: 'Request additional information from customer',
+        requiresMessage: true,
+        nextStatus: 'Pending Customer'
+      },
+      {
+        id: 'transfer',
+        label: 'Transfer Case',
+        description: 'Transfer to another team',
+        requiresTeam: true,
+        maintainsStatus: true
+      }
+    ]
+  } : null;
 
   const [selectedAction, setSelectedAction] = useState(null);
   const [showActionsMenu, setShowActionsMenu] = useState(false);
