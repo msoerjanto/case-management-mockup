@@ -18,21 +18,10 @@ import {
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 
-function CaseDetails({onBack}) {
-  const caseData = {
-    id: 'TM-2024-001',
-    title: 'High Value Transaction Alert',
-    status: 'In Progress',
-    priority: 'High',
-    assignee: 'Balgis Harris',
-    createdAt: '2024-01-09T10:00:00',
-    dueDate: '2024-01-11T18:00:00',
-    description: 'Customer is unable to verify their account through the mobile app.',
-    customer: {
-      name: 'Bambang Suryanto',
-      email: 'bambang.suryanto@gmail.com',
-      phone: '+62 812-8888-9999'
-    },
+import { mockCases } from '../../data/mockCaseData';
+
+function CaseDetails({ caseId, onBack }) {
+  const caseData = mockCases[caseId];
     // Available actions based on current state
     availableActions: [
         {
