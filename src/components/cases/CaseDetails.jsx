@@ -512,19 +512,23 @@ function CaseDetails({ caseId, onBack }) {
             </div>
             <div className="p-6">
               <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
-                    BS
-                  </div>
-                  <div>
-                    <div className="font-medium">{caseData.customer.name}</div>
-                    <div className="text-sm text-gray-500">{caseData.customer.email}</div>
-                  </div>
-                </div>
-                <div className="text-sm">
-                  <div className="text-gray-500">Phone</div>
-                  <div>{caseData.customer.phone}</div>
-                </div>
+                {caseData.customer && (
+                  <>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                        {caseData.customer.name.split(' ').map(n => n[0]).join('')}
+                      </div>
+                      <div>
+                        <div className="font-medium">{caseData.customer.name}</div>
+                        <div className="text-sm text-gray-500">{caseData.customer.email}</div>
+                      </div>
+                    </div>
+                    <div className="text-sm">
+                      <div className="text-gray-500">Phone</div>
+                      <div>{caseData.customer.phone}</div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
