@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { CaseDetails } from '../components/cases/CaseDetails';
 import { Button } from "../components/ui/button";
 import { mockCases } from "../data/mockCaseData";
+import { teamMembers } from "../data/mockTeamData";
 import { Input } from "../components/ui/input";
 import { Plus, Search, Filter, AlertTriangle, Clock, X } from 'lucide-react';
 
@@ -298,7 +299,12 @@ function CasesView() {
                         </div>
                         <div>
                           <div className="text-sm font-medium">{caseItem.assignedTo.name}</div>
-                          <div className="text-xs text-gray-500">{caseItem.assignedTo.role}</div>
+                          <div className="text-xs text-gray-500">
+                            {mockCases[caseItem.id]?.assignee ? 
+                              teamMembers.find(m => m.name === mockCases[caseItem.id].assignee)?.role || 'Unknown Role'
+                              : 'Unassigned'
+                            }
+                          </div>
                         </div>
                       </div>
                     ) : (
