@@ -24,14 +24,14 @@ function CaseDetails({onBack}) {
     title: 'High Value Transaction Alert',
     status: 'In Progress',
     priority: 'High',
-    assignee: 'John Smith',
+    assignee: 'Balgis Harris',
     createdAt: '2024-01-09T10:00:00',
     dueDate: '2024-01-11T18:00:00',
     description: 'Customer is unable to verify their account through the mobile app.',
     customer: {
-      name: 'Sarah Wilson',
-      email: 'sarah.w@example.com',
-      phone: '+1 234-567-8900'
+      name: 'Bambang Suryanto',
+      email: 'bambang.suryanto@gmail.com',
+      phone: '+62 812-8888-9999'
     },
     // Available actions based on current state
     availableActions: [
@@ -525,7 +525,7 @@ function CaseDetails({onBack}) {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
-                    SW
+                    BS
                   </div>
                   <div>
                     <div className="font-medium">{caseData.customer.name}</div>
