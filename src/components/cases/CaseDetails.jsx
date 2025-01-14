@@ -62,25 +62,7 @@ function CaseDetails({onBack}) {
           description: 'Transfer to another team',
           requiresTeam: true,
           maintainsStatus: true
-        },
-        {
-            id: 'approve',
-            label: 'Approve Case',
-            description: 'Approve and proceed with the case',
-            requiresComment: true,    // Optional approval comment
-            requiresAttachment: false, // If approval needs document attachment
-            nextStatus: 'Approved',
-            isApprovalAction: true
-          },
-          {
-            id: 'reject',
-            label: 'Reject Case',
-            description: 'Reject the current case',
-            requiresComment: true,     // Require reason for rejection
-            requiresAttachment: false,
-            nextStatus: 'Rejected',
-            isApprovalAction: true
-          }
+        }
       ]
   };
 
