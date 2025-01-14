@@ -19,7 +19,43 @@ export const mockCases = {
       frequency: '5 transactions',
       timeWindow: '24 hours',
       unusualPattern: 'Multiple cross-border transfers'
-    }
+    },
+    comments: [
+      {
+        id: 1,
+        text: 'Investigating high value transactions across multiple accounts',
+        author: 'Balgis Harris',
+        timestamp: '2024-01-09T11:30:00',
+        authorInitials: 'BH'
+      },
+      {
+        id: 2,
+        text: 'Customer profile indicates regular international business transactions',
+        author: 'Irving Luntungan',
+        timestamp: '2024-01-09T14:15:00',
+        authorInitials: 'IL'
+      }
+    ],
+    attachments: [
+      {
+        id: 1,
+        filename: 'transaction_summary.xlsx',
+        description: 'Summary of suspicious transactions',
+        uploadedBy: 'Balgis Harris',
+        uploadedAt: '2024-01-09T10:30:00',
+        fileSize: '245 KB',
+        fileType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      },
+      {
+        id: 2,
+        filename: 'customer_profile.pdf',
+        description: 'Customer risk profile documentation',
+        uploadedBy: 'System',
+        uploadedAt: '2024-01-09T10:00:00',
+        fileSize: '1.2 MB',
+        fileType: 'application/pdf'
+      }
+    ]
   },
   'TM-2024-002': {
     id: 'TM-2024-002',
