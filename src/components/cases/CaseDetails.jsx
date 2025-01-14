@@ -363,7 +363,7 @@ function CaseDetails({onBack}) {
                 <div className="p-4 bg-gray-50 rounded-lg">
                   <div className="text-sm text-gray-500">Created By</div>
                   <div className="mt-1 text-sm font-medium">
-                    Sarah Johnson
+                    System
                   </div>
                 </div>
                 <div className="p-4 bg-gray-50 rounded-lg">
