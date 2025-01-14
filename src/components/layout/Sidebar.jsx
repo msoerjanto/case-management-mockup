@@ -118,7 +118,7 @@ export function Sidebar({ activeView, setActiveView }) {
         {/* Advanced Menu Items */}
         {showAdvancedMenu && (
           <div className="mt-2 space-y-1">
-            {advancedMenuItems.map(item => (
+            {futureFeatures.map(item => (
               <div
                 key={item.id}
                 className={`p-2 rounded cursor-pointer ${
