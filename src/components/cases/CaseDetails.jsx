@@ -61,15 +61,7 @@ function CaseDetails({ caseId, onBack }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [showAttachmentModal, setShowAttachmentModal] = useState(false);
 
-  // Mock attachment data - would come from API
-  const attachmentDetails = {
-    filename: 'screenshot.png',
-    description: 'Customer account verification error screenshot',
-    uploadedBy: 'John Smith',
-    uploadedAt: '2024-01-13T15:30:00',
-    fileSize: '2.4 MB',
-    fileType: 'image/png'
-  };
+  const [attachmentDetails, setAttachmentDetails] = useState(null);
 
   const timelineItems = useMemo(() => [
     {
@@ -424,27 +416,31 @@ function CaseDetails({ caseId, onBack }) {
               <h2 className="font-medium">Comments</h2>
             </div>
             <div className="p-6 space-y-6">
-              {/* Comment Item */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium">
-                    JS
+              {/* Comments List */}
+              {caseData.comments?.map((comment) => (
+                <div key={comment.id} className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-medium">
+                      {comment.authorInitials}
+                    </div>
                   </div>
-                </div>
-                <div className="flex-1">
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <span className="font-medium">John Smith</span>
-                        <span className="text-gray-500 text-sm ml-2">2 hours ago</span>
+                  <div className="flex-1">
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <span className="font-medium">{comment.author}</span>
+                          <span className="text-gray-500 text-sm ml-2">
+                            {new Date(comment.timestamp).toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="mt-2 text-gray-600">
+                        {comment.text}
                       </div>
                     </div>
-                    <div className="mt-2 text-gray-600">
-                      Reached out to customer for additional information about the verification issue.
-                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
 
               {/* Add Comment */}
               <div className="flex gap-4 mt-4">
@@ -545,19 +541,24 @@ function CaseDetails({ caseId, onBack }) {
             </div>
             <div className="p-6">
               <div className="space-y-2">
-                <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
-                  <div className="flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-gray-400" />
-                    <span className="text-sm">screenshot.png</span>
+                {caseData.attachments?.map((attachment) => (
+                  <div key={attachment.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                    <div className="flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-gray-400" />
+                      <span className="text-sm">{attachment.filename}</span>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => {
+                        setAttachmentDetails(attachment);
+                        setShowAttachmentModal(true);
+                      }}
+                    >
+                      View
+                    </Button>
                   </div>
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    onClick={() => setShowAttachmentModal(true)}
-                  >
-                    View
-                  </Button>
-                </div>
+                ))}
               </div>
               <Button variant="outline" className="w-full mt-4">
                 <Paperclip className="w-4 h-4 mr-2" />
